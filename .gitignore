@@ -321,3 +321,4 @@ cython_debug/
 allure-results/
 chromedriver
 geckodriver
+.DS_Store
