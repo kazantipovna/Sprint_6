@@ -8,8 +8,8 @@ from pages.base_page import BasePage, BasePageLocators
 
 
 class MainPageLocators(BasePageLocators):
+    """Класс локаторов"""
     def __init__(self):
-        """Локаторы"""
         super().__init__()
         self.order_top_btn = By.XPATH, "(//button[text()='Заказать'])[1]"
         self.order_bottom_btn = By.XPATH, "(//button[text()='Заказать'])[2]"

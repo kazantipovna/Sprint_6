@@ -5,7 +5,7 @@ from pages.base_page import BasePage, BasePageLocators
 
 
 class OrderForWhoPageLocators(BasePageLocators):
-    """Класс странички заказа с формой "Для кого" """
+    """Класс локаторов"""
     def __init__(self):
         super().__init__()
         self.order_btn = By.XPATH, "//button[contains(text(), 'Заказать')]"
@@ -19,6 +19,7 @@ class OrderForWhoPageLocators(BasePageLocators):
 
 
 class OrderForWhoPage(BasePage):
+    """Класс странички заказа с формой "Для кого" """
 
     def __init__(self, driver):
         super().__init__(driver)

@@ -8,14 +8,14 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 
 class BasePageLocators:
-    """Локаторы"""
+    """Класс локаторов"""
     main_img = By.XPATH, './/img[@alt="Scooter"]'
     ya_img = By.XPATH, './/img[@alt="Yandex"]'
     cookie_btn = By.XPATH, "//button[text()='да все привыкли']"
 
 
 class BasePage:
-    """Суперкласс базовой страницы, ее методы есть на всех наследуемых"""
+    """Суперкласс базовой страницы, ее методы и кнопки есть на всех наследуемых"""
 
     def __init__(self, driver):
         self.driver = driver
@@ -64,6 +64,7 @@ class BasePage:
         return self.get_web_element(BasePageLocators.cookie_btn)
 
     def wait_for_url(self, expected_url, attempts_count=20, attempt_timeout=0.3):
+        """Ждет ссылку 20 раз по 0.3 секунды и возвращает её"""
         current_url = self.driver.current_url
         for _ in range(attempts_count):
             sleep(attempt_timeout)
@@ -83,7 +84,6 @@ class BasePage:
         :param attempts_timeout: float - таймаут между попытками
         :return: None
         """
-
         for i in range(attempts_count):
             try:
                 web_element.click()

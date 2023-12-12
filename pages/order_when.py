@@ -5,7 +5,7 @@ from pages.base_page import BasePage, BasePageLocators
 
 
 class OrderWhenPageLocators(BasePageLocators):
-    """Локаторы"""
+    """Класс локаторов"""
     def __init__(self):
         super().__init__()
         self.when_date = By.XPATH, './/input[@placeholder="* Когда привезти самокат"]'
@@ -23,6 +23,7 @@ class OrderWhenPageLocators(BasePageLocators):
 
 
 class OrderWhenPage(BasePage):
+    """Класс странички заказа с формой "Про аренду" """
 
     def __init__(self, driver):
         super().__init__(driver)

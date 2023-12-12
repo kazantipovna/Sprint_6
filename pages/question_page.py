@@ -4,8 +4,8 @@ from pages.base_page import BasePage, BasePageLocators
 
 
 class QuestionPageLocators(BasePageLocators):
+    """Класс локаторов"""
     def __init__(self):
-        """Локаторы"""
         super().__init__()
         self.FAQ_panel = By.CLASS_NAME, 'Home_FAQ__3uVm4'
         self.FAQ_question = By.ID, 'accordion__heading-{}'
