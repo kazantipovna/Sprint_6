@@ -1,21 +1,20 @@
 import allure
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
-from pages.base_page import BasePage, BasePageLocators
+from pages.base_page import BasePage
+from tests.params import URLs
 
 
-class OrderForWhoPageLocators(BasePageLocators):
+class OrderForWhoPageLocators:
     """Класс локаторов"""
-    def __init__(self):
-        super().__init__()
-        self.order_btn = By.XPATH, "//button[contains(text(), 'Заказать')]"
-        self.form_title = By.XPATH, "//div[contains(text(), 'Для кого самокат')]"
-        self.name = By.XPATH, './/input[@placeholder="* Имя"]'
-        self.surname = By.XPATH, './/input[@placeholder="* Фамилия"]'
-        self.address = By.XPATH, './/input[@placeholder="* Адрес: куда привезти заказ"]'
-        self.station = By.XPATH, './/input[@placeholder="* Станция метро"]'
-        self.phone = By.XPATH, './/input[@placeholder="* Телефон: на него позвонит курьер"]'
-        self.next_btn = By.XPATH, "//button[contains(text(), 'Далее')]"
+    order_btn = By.XPATH, "//button[contains(text(), 'Заказать')]"
+    form_title = By.XPATH, "//div[contains(text(), 'Для кого самокат')]"
+    name = By.XPATH, './/input[@placeholder="* Имя"]'
+    surname = By.XPATH, './/input[@placeholder="* Фамилия"]'
+    address = By.XPATH, './/input[@placeholder="* Адрес: куда привезти заказ"]'
+    station = By.XPATH, './/input[@placeholder="* Станция метро"]'
+    phone = By.XPATH, './/input[@placeholder="* Телефон: на него позвонит курьер"]'
+    next_btn = By.XPATH, "//button[contains(text(), 'Далее')]"
 
 
 class OrderForWhoPage(BasePage):
@@ -23,7 +22,7 @@ class OrderForWhoPage(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
-        self.url = 'https://qa-scooter.praktikum-services.ru/order'
+        self.url = URLs.order_url
         self.locators = OrderForWhoPageLocators()
 
     @property
@@ -72,3 +71,12 @@ class OrderForWhoPage(BasePage):
     def phone(self):
         """Возвращаем поле "Номер телефона в форме "Для кого" """
         return self.get_web_element(self.locators.phone)
+
+    @allure.step('Заполняем форму "Для кого самокат"')
+    def fill_form_for_who(self, name, surname, address, station, phone):
+        self.name.send_keys(name)
+        self.surname.send_keys(surname)
+        self.address.send_keys(address)
+        self.set_station(station)
+        self.phone.send_keys(phone)
+        self.next_btn.click()

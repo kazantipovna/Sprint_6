@@ -1,25 +1,24 @@
 import allure
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
-from pages.base_page import BasePage, BasePageLocators
+from pages.base_page import BasePage
+from tests.params import URLs
 
 
-class OrderWhenPageLocators(BasePageLocators):
+class OrderWhenPageLocators:
     """Класс локаторов"""
-    def __init__(self):
-        super().__init__()
-        self.when_date = By.XPATH, './/input[@placeholder="* Когда привезти самокат"]'
-        self.rent_term = By.XPATH, '//*[text()="* Срок аренды"]'
-        self.rent_term_item = By.XPATH, "//div[@class='Dropdown-menu']//div[text()='{}']"
-        self.black_check = By.ID, 'black'
-        self.gray_check = By.ID, 'grey'
-        self.comment = By.XPATH, './/input[@placeholder="Комментарий для курьера"]'
-        self.order_btn = By.XPATH, '(//button[text()="Заказать"])[2]'
-        self.form_title = By.CLASS_NAME, 'Order_Header__BZXOb'
-        self.approve_form = By.XPATH, '//div[text()="Хотите оформить заказ?"]'
-        self.yes_bnt = By.XPATH, '(//button[text()="Да"])'
-        self.order_done = By.XPATH, '//div[text()="Заказ оформлен"]'
-        self.view_status_btn = By.XPATH, "//button[contains(text(), 'Посмотреть статус')]"
+    when_date = By.XPATH, './/input[@placeholder="* Когда привезти самокат"]'
+    rent_term = By.XPATH, '//*[text()="* Срок аренды"]'
+    rent_term_item = By.XPATH, "//div[@class='Dropdown-menu']//div[text()='{}']"
+    black_check = By.ID, 'black'
+    gray_check = By.ID, 'grey'
+    comment = By.XPATH, './/input[@placeholder="Комментарий для курьера"]'
+    order_btn = By.XPATH, '(//button[text()="Заказать"])[2]'
+    form_title = By.CLASS_NAME, 'Order_Header__BZXOb'
+    approve_form = By.XPATH, '//div[text()="Хотите оформить заказ?"]'
+    yes_bnt = By.XPATH, '(//button[text()="Да"])'
+    order_done = By.XPATH, '//div[text()="Заказ оформлен"]'
+    view_status_btn = By.XPATH, "//button[contains(text(), 'Посмотреть статус')]"
 
 
 class OrderWhenPage(BasePage):
@@ -27,7 +26,7 @@ class OrderWhenPage(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
-        self.url = 'https://qa-scooter.praktikum-services.ru/order'
+        self.url = URLs.order_url
         self.locators = OrderWhenPageLocators()
 
     @property
@@ -113,3 +112,10 @@ class OrderWhenPage(BasePage):
         """Возвращаем кнопку "Посмотреть статус" """
         return self.get_web_element(self.locators.view_status_btn)
 
+    @allure.step('Заполняем форму "Про аренду"')
+    def fill_form_when(self, date, term, color, comment):
+        self.set_when_date(date)
+        self.set_rent_term(term)
+        self.color(color).click()
+        self.comment.send_keys(comment)
+        self.order_btn.click()

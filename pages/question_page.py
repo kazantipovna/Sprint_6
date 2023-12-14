@@ -1,15 +1,14 @@
 import allure
 from selenium.webdriver.common.by import By
-from pages.base_page import BasePage, BasePageLocators
+from pages.base_page import BasePage
+from tests.params import URLs
 
 
-class QuestionPageLocators(BasePageLocators):
+class QuestionPageLocators():
     """Класс локаторов"""
-    def __init__(self):
-        super().__init__()
-        self.FAQ_panel = By.CLASS_NAME, 'Home_FAQ__3uVm4'
-        self.FAQ_question = By.ID, 'accordion__heading-{}'
-        self.FAQ_answer = By.ID, 'accordion__panel-{}'
+    FAQ_panel = By.CLASS_NAME, 'Home_FAQ__3uVm4'
+    FAQ_question = By.ID, 'accordion__heading-{}'
+    FAQ_answer = By.ID, 'accordion__panel-{}'
 
 
 class QuestionPage(BasePage):
@@ -17,7 +16,7 @@ class QuestionPage(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
-        self.url = 'https://qa-scooter.praktikum-services.ru/'
+        self.url = URLs.main_url
         self.locators = QuestionPageLocators()
 
     @allure.step('Находим вопрос по его номеру, зашитому в локатор')

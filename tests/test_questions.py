@@ -1,7 +1,6 @@
 import allure
-
+from tests.params.data_questions import TEXT_CHECK
 from pages.question_page import QuestionPage
-from tests.params import data_questions
 import pytest
 
 
@@ -16,5 +15,5 @@ class TestFAQ:
         question_page.click_web_element(question_page.get_question_by_number(question_num))
 
         question_answer = question_page.get_answer_by_number(question_num).text
-        expected_answer = data_questions.text_check[question_num]
+        expected_answer = TEXT_CHECK[question_num]
         assert expected_answer == question_answer, f'Ошибка: текст не соответствует заданному: {expected_answer}'

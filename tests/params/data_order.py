@@ -3,7 +3,6 @@ from datetime import datetime, timedelta
 ORDERS_DATA = [
     {
         'order_button': 'order_top_btn',
-        'logo_button': 'main_img',
         'name': 'Вася',
         'surname': 'Пупкин',
         'address': 'Красная площадь 1',
@@ -16,7 +15,6 @@ ORDERS_DATA = [
     },
     {
         'order_button': 'order_bottom_btn',
-        'logo_button': 'ya_img',
         'name': 'Маша',
         'surname': 'Пупкина',
         'address': 'Красная площадь 2',

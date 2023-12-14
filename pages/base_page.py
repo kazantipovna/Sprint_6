@@ -1,17 +1,11 @@
 from time import sleep
 
 import allure
-from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
-
-class BasePageLocators:
-    """Класс локаторов"""
-    main_img = By.XPATH, './/img[@alt="Scooter"]'
-    ya_img = By.XPATH, './/img[@alt="Yandex"]'
-    cookie_btn = By.XPATH, "//button[text()='да все привыкли']"
+from tests.params import URLs
 
 
 class BasePage:
@@ -19,17 +13,12 @@ class BasePage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.url = 'https://qa-scooter.praktikum-services.ru/'
-        self.locators = None
+        self.url = URLs.main_url
 
-    @allure.step('Открываем страничку и принимаем куки')
-    def open(self):
-        """Открываем страничку и принимаем куки"""
-        self.driver.get(self.url)
-        try:
-            self.cookie_btn.click()
-        except:
-            pass
+    @allure.step('Открываем страничку {url}')
+    def open(self, url):
+        """Открываем выбранную страничку"""
+        self.driver.get(url)
 
     @allure.step('Получаем элемент {locator}')
     def get_web_element(self, locator):
@@ -47,21 +36,6 @@ class BasePage:
     def scroll_to_web_element(self, web_element):
         """Скроллим до элемента"""
         self.driver.execute_script('arguments[0].scrollIntoView();', web_element)
-
-    @property
-    def main_img(self):
-        """Возвращаем логотип "Самокат" """
-        return self.get_web_element(BasePageLocators.main_img)
-
-    @property
-    def ya_img(self):
-        """Возвращаем логотип "Яндекс" """
-        return self.get_web_element(BasePageLocators.ya_img)
-
-    @property
-    def cookie_btn(self):
-        """Возвращаем кнопку для принятия куки """
-        return self.get_web_element(BasePageLocators.cookie_btn)
 
     def wait_for_url(self, expected_url, attempts_count=20, attempt_timeout=0.3):
         """Ждет ссылку 20 раз по 0.3 секунды и возвращает её"""

@@ -1,19 +1,16 @@
-import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
 
-from pages.base_page import BasePage, BasePageLocators
+from pages.base_page import BasePage
+from tests.params import URLs
 
 
-class MainPageLocators(BasePageLocators):
+class MainPageLocators:
     """Класс локаторов"""
-    def __init__(self):
-        super().__init__()
-        self.order_top_btn = By.XPATH, "(//button[text()='Заказать'])[1]"
-        self.order_bottom_btn = By.XPATH, "(//button[text()='Заказать'])[2]"
-        self.main_header = By.CLASS_NAME, 'Home_Header__iJKdX'
+    order_top_btn = By.XPATH, "(//button[text()='Заказать'])[1]"
+    order_bottom_btn = By.XPATH, "(//button[text()='Заказать'])[2]"
+    main_header = By.CLASS_NAME, 'Home_Header__iJKdX'
+    main_img = By.XPATH, './/img[@alt="Scooter"]'
+    ya_img = By.XPATH, './/img[@alt="Yandex"]'
 
 
 class MainPage(BasePage):
@@ -21,7 +18,7 @@ class MainPage(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
-        self.url = 'https://qa-scooter.praktikum-services.ru/'
+        self.url = URLs.main_url
         self.locators = MainPageLocators()
 
     @property
@@ -38,3 +35,13 @@ class MainPage(BasePage):
     def main_header(self):
         """Возвращаем заголовок главной страницы """
         return self.get_web_element(self.locators.main_header)
+
+    @property
+    def main_img(self):
+        """Возвращаем логотип "Самокат" """
+        return self.get_web_element(self.locators.main_img)
+
+    @property
+    def ya_img(self):
+        """Возвращаем логотип "Яндекс" """
+        return self.get_web_element(self.locators.ya_img)
